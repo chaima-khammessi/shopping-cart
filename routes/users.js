@@ -199,8 +199,7 @@ router.post('/updateuser', [
         }
       })
     }
-
-  })
+})
 router.post('/uploadfile', (req, res, next) => {
 const path = "./public" + req.user.image;
 fs.unlink(path ,(err)=>{
