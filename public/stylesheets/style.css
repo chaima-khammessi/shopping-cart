@@ -1,0 +1,22 @@
+
+.card img{
+  max-width: 100px;
+  max-height: 200px !important;
+  padding-top: 10px;
+}
+ .card .card-title{
+   font-size: 20px;
+
+}
+.card .card-text{
+  font-size: 13px;
+
+}
+.price{
+  font-size: 15 px;
+  font-weight: bold;
+  padding: 3px;
+}
+.row{
+  padding-top: 20px;
+}

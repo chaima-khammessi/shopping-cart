@@ -1,0 +1,69 @@
+
+<div style="padding-top: 30px; " class="col-md-6 offset-md-3">
+    {{#if errorMas}}
+    <div class="alert alert-danger">
+        {{ errorMas}}
+
+    </div>
+    {{/if}}
+
+    <div id="payment-errors" class="alert alert-danger d-none">
+
+    </div>
+    <form action="/checkout" method="post" id="checkout-form">
+        <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" name="name" value="{{user.userName}}" class="form-control" id="">
+        </div>
+        <div class="form-group">
+            <label for="Adress">Adress</label>
+            <input type="text" name="adress" value="{{user.adress}}" class="form-control" id="">
+        </div>
+        <div class="form-group">
+            <label for="contact">contact</label>
+            <input type="text" name="contact" value='{{{user.contact}}}' class="form-control" id="">
+        </div>
+        <div class="form-group">
+            <label for="credit card name">credit card name</label>
+            <input type="text" name="credit card name" placeholder="please enter your credit card name"
+                class="form-control" id="">
+        </div>
+        
+        <div class="form-group">
+            <label for="credit card number">credit card number</label>
+            <input type="number" name="credit card number" placeholder="please enter your credit card number"
+                class="form-control" id="card-number">
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="expiration month">expiration month</label>
+                    <input type="number" name="credit card expiration month"
+                        placeholder="please enter your credit card expiration month" class="form-control"
+                        id="card-expiry-month">
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="expiration year">expiration year</label>
+                    <input type="number" name="credit card expiration year"
+                        placeholder="please enter your credit card expiration year" class="form-control"
+                        id="card-expiry-year">
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="CVC">CVC</label>
+            <input type="number" name="cvc" placeholder="please enter your credit card expiration cvc"
+                class="form-control" id="card-cvc">
+        </div>
+        <div class="text-center" style="padding-top: 20px;">
+            <button type="submit" class="btn btn-success">Checkout $ {{totalprice}}</button>
+        </div>
+
+    </form>
+</div>
+
+<script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+<script type="text/javascript" src=" /javascripts/checkout.js"></script>

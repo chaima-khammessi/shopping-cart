@@ -1,0 +1,214 @@
+{{#if messageImage}}
+<div class="alert alert-danger">
+    <p>{{messageImage}}</p>
+</div>
+{{/if}}
+<input type="hidden" value="{{hasMassagesError}}" id="hasMassagesError">
+
+<div class="row">
+   
+    <h1 style="font-weight: bold;">Heloo {{user.userName}}</h1>
+
+</div>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="text-center">
+            <img src="{{user.image}}" class="img-thumbnail" alt="..." id="image">
+
+        </div>
+        <br><br>
+
+        <form action="uploadfile" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <input class="form-control" type="file" id="file" name="myfile" accept="image/jpeg">
+                <div class="d-none" id="actionbutton">
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <input type="submit" value="save" class="btn btn-success">
+                    <a href="/users/profile" class="btn btn-danger">Cancel</a>
+
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+    <div class="col sm-9">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button"
+                    role="tab" aria-controls="home" aria-selected="true">Home</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button"
+                    role="tab" aria-controls="profile" aria-selected="false">Order</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button"
+                    role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container">
+                    <div class="row row-cols-2" id="rowhome">
+                        <div class="col">
+                            <p class="fw-bold">User Name</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-normal">{{{user.userName}}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-bold">Email</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-normal">{{{user.email}}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-bold">Contact</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-normal">{{{user.contact}}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-bold">Adress</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-normal">{{{user.adress}}}</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-bold">Password</p>
+                        </div>
+                        <div class="col">
+                            <p class="fw-normal">************</p>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" class="btn btn-primary" id="updatedata">Update Data</button>
+                        </div>
+                    </div>
+
+                    <form action="updateuser" method="post" id="formData" class="d-none" style="padding-top:30px ;">
+                        {{#each massages}}
+
+                        <div class="alert alert-danger">
+                            <p>{{this}} </p>
+                        </div>
+                        {{/each}}
+
+                        <div class="form-group">
+                            <label for="userName">User Name</label>
+                            <input type="text" class="form-control" name="username"
+                                placeholder="please enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" name="email"
+                                placeholder="please enter your  email">
+                        </div>
+                        <div class="form-group">
+                            <label for="contact">Contact</label>
+                            <input type="text" class="form-control" name="contact"
+                                placeholder="please enter your contact">
+                        </div>
+                        <div class="form-group">
+                            <label for="adress">Adress</label>
+                            <input type="text" class="form-control" name="adress"
+                                placeholder="please enter your  adress">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password"
+                                placeholder="please enter your password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm password">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirmpassword"
+                                placeholder="please enter your confirm password">
+                        </div>
+                        <input type="hidden" name="_csrf" value="{{token}}">
+
+                        <div class="text-center" style="padding-top: 50px;">
+                            <button type="submit" class="btn btn-success">Save</button>
+                            <a href="/users/profile" class="btn btn-danger"> Cancel</a>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <div style="padding-top: 30px;">
+                    {{#each userOrder as | val index|}}
+
+                    <table class="table">
+                        <thead>
+                            <tr class="table-active text-center">
+                                <td colspan="4" style="font-weight: bold;">Order Number{{add @index}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="col" class="text-center">#</th>
+                                <th scope="col" class="text-center">Product <nav>ame</nav>
+                                </th>
+                                <th scope="col" class="text-center">Product Quantity</th>
+                                <th scope="col" class="text-center">Product Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each this.cart.selectedProdect as | val indexProduct|}}
+                            <tr>
+                                <th scope="row" class="text-center">{{add @indexProduct }}</th>
+                                <td class="text-center">{{this.name}}</td>
+                                <td class="text-center">{{this.quantity}}</td>
+                                <td class="text-center">{{this.price}}</td>
+                            </tr>
+
+                            {{/each}}
+                            <tr class="table-primary">
+                                <td colspan="3" style="font-weight: bold;">
+                                    <table>Total Price</table>
+                                </td>
+                                <td style="font-weight: bold;" class="text-center">${{this.orderPrice}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    {{/each}}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+    console.log(document.getElementById('hasMassagesError').value)
+    if (document.getElementById('hasMassagesError').value === "true") {
+        $('#rowhome').addClass('d-none');
+        $('#formData').removeClass('d-none')
+
+    }
+    document.getElementById('file').onchange = function () {
+        const reader = new FileReader();
+        reader.onload = function () {
+            document.getElementById('image').src = this.result;
+        }
+        reader.readAsDataURL(this.files[0]);
+        $('#file').addClass('d-none');
+
+        $('#actionbutton').removeClass();
+    }
+
+
+
+    document.getElementById('updatedata').onclick = function () {
+        $('#rowhome').addClass('d-none');
+        $('#formData').removeClass('d-none')
+    }
+
+
+
+
+</script>
